@@ -99,10 +99,11 @@ class _HomescreenState extends State<Homescreen> {
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemBuilder: (context, index) => mainNewsBox(
-                        homeproviderTrue!.newsCompanyImgList[index],
-                        homeproviderTrue!.newsCompanyNameList[index],
                         homeproviderTrue!.newsJsonList[index].urlToImage!,
-                        homeproviderTrue!.newsJsonList[index].title!,
+                        homeproviderTrue!.newsJsonList[index+2].source!.name!,
+                        homeproviderTrue!.newsJsonList[index+2].urlToImage!,
+                        homeproviderTrue!.newsJsonList[index+2].title!,
+                      homeproviderTrue!.newsJsonList[index].publishedAt!,
                     ),
                     itemCount: homeproviderTrue!.newsJsonList.length,
                   ),
@@ -113,7 +114,7 @@ class _HomescreenState extends State<Homescreen> {
     );
   }
 
-  Widget mainNewsBox(String profilePath, String name, String contentImg,String newsDescription) {
+  Widget mainNewsBox(String profilePath, String name, String contentImg,String newsDescription,String date) {
     return Container(
       margin: EdgeInsets.only(top: 10),
       height: 410,
@@ -130,7 +131,7 @@ class _HomescreenState extends State<Homescreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CircleAvatar(
-                  backgroundImage: AssetImage("${profilePath}"),
+                  backgroundImage: NetworkImage("${profilePath}"),
                 ),
                 SizedBox(
                   width: 10,
@@ -160,7 +161,7 @@ class _HomescreenState extends State<Homescreen> {
                       ],
                     ),
                     Text(
-                      " 4d",
+                      " ${date}",
                       style:
                           GoogleFonts.poppins(fontSize: 10, color: Colors.grey),
                     )
@@ -169,7 +170,7 @@ class _HomescreenState extends State<Homescreen> {
                 Spacer(),
                 Container(
                   height: 35,
-                  width: 100,
+                  width: 80,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
                     color: Colors.grey.shade50,

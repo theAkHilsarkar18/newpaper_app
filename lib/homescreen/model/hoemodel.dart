@@ -1,16 +1,17 @@
 class Homemodel {
   String? status;
   int? totalResults;
-  Articles? articles;
+  List<Articles>? articleList = [];
 
-  Homemodel({this.status, this.totalResults, this.articles});
+  Homemodel({this.status, this.totalResults, this.articleList});
 
   Homemodel jsonDataFromHomemodel(Map m1)
   {
     status = m1['status'];
     totalResults = m1['totalResults'];
-    Articles a1 = Articles().jsonDataFromArticles(m1['articles']);
-    Homemodel h1 = Homemodel(articles: a1,status: status,totalResults: totalResults);
+    List articleJsonList = m1['articles'];
+    articleList = articleJsonList.map((e) => Articles().jsonDataFromArticles(e)).toList();
+    Homemodel h1 = Homemodel(totalResults: totalResults,status: status,articleList: articleList);
     return h1;
   }
 
